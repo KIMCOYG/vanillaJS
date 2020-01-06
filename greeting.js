@@ -17,9 +17,13 @@ function handleSubmit(){
 }
 
 function changeName(){
+    const li = document.querySelector(".js-toDoList");
+
     form.classList.add(SHOWING_CN);
     greeting.classList.remove(SHOWING_CN);
     localStorage.removeItem(USER_LS);
+    localStorage.removeItem("toDos");
+    location.reload();
     input.value = "";
 }
 
