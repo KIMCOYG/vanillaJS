@@ -3,14 +3,20 @@ body{
     color: skyblue;
 }
 
-ul, li{
-    width: 100%;
+ul{
+    width: 300px;
     margin-left: auto;
     margin-right: auto;
 }
 
+li{
+    text-align: left;
+}
+
 .centering{
     text-align: center;
+    vertical-align: middle;
+    padding-top: 20%;
 }
 
 .clicked{
