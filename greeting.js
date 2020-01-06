@@ -1,18 +1,26 @@
 const form = document.querySelector(".js-form"),
     input = form.querySelector("input"),
     greeting = document.querySelector(".js-greetings");
+
 const USER_LS = "currentUser",
     SHOWING_CN = "showing";
 
 function saveName(text){
     localStorage.setItem(USER_LS, text);
-} 
+}
 
-function handleSubmit(event){
+function handleSubmit(){
     event.preventDefault();
     const currentValue = input.value;
     paintGreeting(currentValue);
     saveName(currentValue);
+}
+
+function changeName(){
+    form.classList.add(SHOWING_CN);
+    greeting.classList.remove(SHOWING_CN);
+    localStorage.removeItem(USER_LS);
+    input.value = "";
 }
 
 function askForName(){
@@ -21,17 +29,23 @@ function askForName(){
 }
 
 function paintGreeting(text){
+    const changeBtn = document.createElement("button");
+    changeBtn.innerText = "CHANGE";
+    changeBtn.addEventListener("click", changeName);
+
     form.classList.remove(SHOWING_CN);
     greeting.classList.add(SHOWING_CN);
     greeting.innerText = `Hello ${text}`;
+    greeting.appendChild(changeBtn);
 }
 
 function loadName(){
     const currentUser = localStorage.getItem(USER_LS);
     if(currentUser === null){
         askForName();
-    } else{
-        paintGreeting(currentUser);
+    }
+    else{
+        paintGreeting(currentUser)
     }
 }
 
