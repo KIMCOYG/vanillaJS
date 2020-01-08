@@ -33,7 +33,6 @@ function changeName(){
     for(var i=0;i<liAll.length;i++){
         todoList.removeChild(liAll[i]);
     }
-    
 }
 
 function askForName(){
