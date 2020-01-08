@@ -1,6 +1,8 @@
 const toDoForm = document.querySelector(".js-toDoForm"),
     toDoInput = toDoForm.querySelector("input"),
-    toDoList = document.querySelector(".js-toDoList");
+    toDoList = document.querySelector(".js-toDoList"),
+    allDelete = document.querySelector(".allDelete"),
+    selDelete = document.querySelector(".selectDelete");
 
 const TODOS_LS = 'toDos';
 
@@ -79,9 +81,24 @@ function loadToDos(){
     }
 }
 
+function allDeleteClick(){
+    localStorage.removeItem(TODOS_LS);
+    const listAll = document.querySelectorAll("li");
+    for(var i=0;i<listAll.length;i++){
+        toDoList.removeChild(listAll[i]);
+    }
+    toDos = [];
+}
+
+function selDeleteClick(){
+    console.log(selDelete);
+}
+
 function init(){
     loadToDos();
-    toDoForm.addEventListener("submit", handleSubmit)
+    toDoForm.addEventListener("submit", handleSubmit);
+    allDelete.addEventListener("click", allDeleteClick);
+    selDelete.addEventListener("click", selDeleteClick);
 }
 
 init();

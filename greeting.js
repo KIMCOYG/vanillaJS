@@ -62,8 +62,16 @@ function loadName(){
     }
 }
 
+function greetingBox(){
+    const name = localStorage.getItem(USER_LS);
+    if(name !== null){
+        todoForm.classList.add(SHOWING_CN);
+    }
+}
+
 function init(){
     loadName();
+    greetingBox();
 }
 
 init();
