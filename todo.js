@@ -45,7 +45,26 @@ function paintToDo(text){
 function handleSubmit(event){
     event.preventDefault();
     const currentValue = toDoInput.value;
-    paintToDo(currentValue);
+    const loadedToDos = localStorage.getItem(TODOS_LS);
+    const parsedToDos = JSON.parse(loadedToDos);
+    let overlap = false;
+    if(parsedToDos === null){
+        console.log('hello'); //paintToDo(currentValue);
+    } else{
+        parsedToDos.forEach(function(toDo){
+            if(toDo.text === currentValue){
+                overlap = true;
+                console.log(overlap);
+            }
+        })
+    }
+    if(overlap === true){
+        alert('Overlap!!!');
+        overlap = false;
+        toDoInput.value = "";
+    } else{
+        paintToDo(currentValue);
+    }
     toDoInput.value = "";
 }
 
