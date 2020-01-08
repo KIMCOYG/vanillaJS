@@ -9,6 +9,7 @@ let toDos = [];
 function deleteToDo(event){
     const btn = event.target;
     const li = btn.parentNode;
+    console.log(btn, li);
     toDoList.removeChild(li);
     const cleanToDos = toDos.filter(function(toDo){
         return toDo.id !== parseInt(li.id);
@@ -77,8 +78,6 @@ function loadToDos(){
         })
     }
 }
-
-
 
 function init(){
     loadToDos();

@@ -1,9 +1,11 @@
 const nameForm = document.querySelector(".js-form"),
     input = nameForm.querySelector("input"),
     greeting = document.querySelector(".js-greetings"),
-    todoForm = document.querySelector(".js-toDoForm");
+    todoForm = document.querySelector(".js-toDoForm"),
+    todoList = document.querySelector(".js-toDoList");
 
 const USER_LS = "currentUser",
+    ToDoS_LS = "toDos"
     SHOWING_CN = "showing";
 
 function saveName(text){
@@ -15,17 +17,23 @@ function handleSubmit(){
     const currentValue = input.value;
     paintGreeting(currentValue);
     saveName(currentValue);
+    todoForm.classList.add(SHOWING_CN);
 }
 
 function changeName(){
-    const li = document.querySelector(".js-toDoList");
+    const liAll = document.querySelectorAll("li");
 
     nameForm.classList.add(SHOWING_CN);
     greeting.classList.remove(SHOWING_CN);
+    todoForm.classList.remove(SHOWING_CN);
     localStorage.removeItem(USER_LS);
-    localStorage.removeItem("toDos");
-    location.reload();
+    localStorage.removeItem(ToDoS_LS);
+    // location.reload();
     input.value = "";
+    for(var i=0;i<liAll.length;i++){
+        todoList.removeChild(liAll[i]);
+    }
+    
 }
 
 function askForName(){
@@ -38,7 +46,6 @@ function paintGreeting(text){
     changeBtn.innerText = "CHANGE";
     changeBtn.addEventListener("click", changeName);
 
-    todoForm.classList.add(SHOWING_CN);
     nameForm.classList.remove(SHOWING_CN);
     greeting.classList.add(SHOWING_CN);
     greeting.innerText = `Hello ${text}`;
