@@ -98,18 +98,18 @@ function allDeleteClick(event){
 function selDeleteClick(event){
     event.preventDefault();
     const checking = document.querySelectorAll(".check");
-    var checkedArray = [];
+    // var checkedArray = [];
     var checkingList
     for(var i=0;i<checking.length;i++){
         if(checking[i].checked === true){
             checkingList = checking[i].parentNode;
-            checkedArray.push(parseInt(checkingList.id));
+            // checkedArray.push(parseInt(checkingList.id));
             toDoList.removeChild(checkingList);
+            const cleanToDos = toDos.filter(function(toDo){
+                return toDo.id !== parseInt(checkingList.id);
+            })
+            toDos = cleanToDos;
         }
-        const cleanToDos = toDos.filter(function(toDo){
-            return toDo.id !== parseInt(checkingList.id);
-        })
-        toDos = cleanToDos;
     }
     saveToDos();
 
