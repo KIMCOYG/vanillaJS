@@ -55,13 +55,14 @@ function handleSubmit(event){
     const loadedToDos = localStorage.getItem(TODOS_LS);
     const parsedToDos = JSON.parse(loadedToDos);
     let overlap = false;
+
     if(parsedToDos === null){
         console.log('hello'); //paintToDo(currentValue);
     } else{
         parsedToDos.forEach(function(toDo){
-            if(toDo.text === currentValue){
+            console.log(toDo.text.toLowerCase(), currentValue.toLowerCase());
+            if(toDo.text.toLowerCase() === currentValue.toLocaleLowerCase()){
                 overlap = true;
-                console.log(overlap);
             }
         })
     }
