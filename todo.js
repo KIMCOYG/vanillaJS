@@ -4,7 +4,8 @@ const toDoForm = document.querySelector(".js-toDoForm"),
     allDelete = document.querySelector(".allDelete"),
     selDelete = document.querySelector(".selectDelete");
 
-const TODOS_LS = 'toDos';
+const TODOS_LS = 'toDos',
+    User_LS = 'currentUser';
 
 let toDos = [];
 
@@ -55,23 +56,29 @@ function handleSubmit(event){
     const loadedToDos = localStorage.getItem(TODOS_LS);
     const parsedToDos = JSON.parse(loadedToDos);
     let overlap = false;
-    if(parsedToDos === null){
-        console.log('hello'); //paintToDo(currentValue);
+    if(currentValue.length>30){
+        alert("Too many words!!");
     } else{
-        parsedToDos.forEach(function(toDo){
-            if(toDo.text === currentValue){
-                overlap = true;
-                console.log(overlap);
-            }
-        })
+        if(parsedToDos === null){
+            console.log('hello'); //paintToDo(currentValue);
+        } else{
+            parsedToDos.forEach(function(toDo){
+                if(toDo.text === currentValue){
+                    overlap = true;
+                    // console.log(overlap);
+                }
+            })
+        }
+        
+        if(overlap === true){
+            alert('Overlap!!!');
+            overlap = false;
+            toDoInput.value = "";
+        } else{
+            paintToDo(currentValue);
+        }
     }
-    if(overlap === true){
-        alert('Overlap!!!');
-        overlap = false;
-        toDoInput.value = "";
-    } else{
-        paintToDo(currentValue);
-    }
+
     toDoInput.value = "";
 }
 
@@ -112,20 +119,18 @@ function selDeleteClick(event){
         }
     }
     saveToDos();
+}
 
-    // for(var i=0;i<checkedArray.length;i++){
-    //     for(var j=0;j<toDos.length;j++){
-    //         console.log(toDos[0].id, checkedArray[0]);
-    //         if(checkedArray[i] === toDos[j].id){
-    //             toDos.pop
-    //         }
-    //     }
-    // }
-    
+function reset(){
+    const name = localStorage.getItem(User_LS);
+    if(name === null){
+        toDos = [];
+    }
 }
 
 function init(){
     loadToDos();
+    reset();
     toDoForm.addEventListener("submit", handleSubmit);
     allDelete.addEventListener("click", allDeleteClick);
     selDelete.addEventListener("click", selDeleteClick);

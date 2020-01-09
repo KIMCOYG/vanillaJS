@@ -29,10 +29,10 @@ function changeName(){
     greeting.classList.remove(SHOWING_CN);
     todoForm.classList.remove(SHOWING_CN);
     delBtns.classList.remove(SHOWING_CN);
+    input.value = "";
+    
     localStorage.removeItem(USER_LS);
     localStorage.removeItem(ToDoS_LS);
-    // location.reload();
-    input.value = "";
     for(var i=0;i<liAll.length;i++){
         todoList.removeChild(liAll[i]);
     }
