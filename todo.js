@@ -8,7 +8,7 @@ const TODOS_LS = 'toDos';
 
 let toDos = [];
 
-function deleteToDo(event){
+function deleteToDo(event){ //필요없음
     const btn = event.target;
     const li = btn.parentNode;
     console.log(btn, li);
@@ -37,7 +37,7 @@ function paintToDo(text){
     delBtn.addEventListener("click", deleteToDo);
     span.innerText = text;
     li.appendChild(span);
-    li.appendChild(delBtn);
+    // li.appendChild(delBtn);
     li.appendChild(checkBox);
     li.id = newId;
     toDoList.appendChild(li);
