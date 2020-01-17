@@ -50,6 +50,16 @@ function paintToDo(text){
     saveToDos();
 }
 
+function handleKeyUp(event){
+    event.preventDefault();
+    const currentValue = toDoInput.value;
+    console.log("hi hello");
+    if(currentValue.length>10){
+        alert("No more than 10 characters");
+        toDoInput.value = "";
+    }
+}
+
 function handleSubmit(event){
     event.preventDefault();
     const currentValue = toDoInput.value;
@@ -159,6 +169,7 @@ function init(){
     loadToDos();
     reset();
     toDoForm.addEventListener("submit", handleSubmit);
+    toDoForm.addEventListener("keyup", handleKeyUp);
     allDelete.addEventListener("click", allDeleteClick);
     selDelete.addEventListener("click", selDeleteClick);
 }
