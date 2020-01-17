@@ -64,7 +64,7 @@ function handleSubmit(event){
             console.log('hello'); //paintToDo(currentValue);
         } else{
             parsedToDos.forEach(function(toDo){
-                if(toDo.text === currentValue){
+                if(toDo.text.toLowerCase() === currentValue.toLowerCase()){
                     overlap = true;
                     // console.log(overlap);
                 }
