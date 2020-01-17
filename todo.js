@@ -94,8 +94,17 @@ function loadToDos(){
     }
 }
 
-function allDeleteClick(event){
-    event.preventDefault();
+let checkingSelected = false;
+function checkingSelBox(){
+    const checking = document.querySelectorAll(".check");
+    checking.forEach(function(checky){
+        if(checky.checked){
+            checkingSelected = true;
+        }
+    });
+}
+
+function allDelelteActive(){
     localStorage.removeItem(TODOS_LS);
     const listAll = document.querySelectorAll("li");
     for(var i=0;i<listAll.length;i++){
@@ -104,10 +113,26 @@ function allDeleteClick(event){
     toDos = [];
 }
 
+function allDeleteClick(event){
+    var con;
+
+    event.preventDefault();
+    checkingSelBox();
+    console.log(checkingSelected);
+    if(checkingSelected){
+        con = confirm("Selected Checkbox, All delete?");
+        if(con){
+            allDelelteActive();
+            checkingSelected = false;
+        }
+    } else {
+        allDelelteActive();
+    }
+}
+
 function selDeleteClick(event){
     event.preventDefault();
     const checking = document.querySelectorAll(".check");
-    // var checkedArray = [];
     var checkingList
     for(var i=0;i<checking.length;i++){
         if(checking[i].checked === true){
