@@ -4,6 +4,8 @@
   <head>
     <title>Something</title>
     <link rel="stylesheet" href="index.css">
+    <meta charset="UTF-8">
+    <script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=s2ra4l2ff0&submodules=geocoder"></script>
   </head>
 
   <body>
@@ -17,7 +19,12 @@
             <input type="text" placeholder="What is your name?">
           </form>
           <h4 class="js-greetings greetings"></h4>
-    
+          
+          <form class="js-map">
+            <div id="map" class="js-map-show"></div>
+            <input type="text" placeholder="Write the location">
+          </form>
+
           <form class="js-toDoForm form">
             <input type="text" placeholder="Write a to do">
           </form>
@@ -25,15 +32,18 @@
             <button class="allDelete">allDel</button>
             <button class="selectDelete">selDel</button>
           </form>
+          
           <ul class="js-toDoList"></ul>
           
+          
           <span class="js-weather"></span>
-    
+
+          <script src="weather.js"></script>
           <script src="clock.js"></script>
           <script src="greeting.js"></script>
           <script src="todo.js"></script>
+          <script src="map.js"></script>
           <!-- <script src="bg.js"></script> -->
-          <script src="weather.js"></script>
         </div>
       </div>
     </div>
