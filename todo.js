@@ -37,22 +37,45 @@ function saveLocation(event){
     const span = form.querySelector(".loca");
     const loadedToDos = localStorage.getItem(TODOS_LS);
     const parsedToDos = JSON.parse(loadedToDos);
+    const addressValue = address.value;
     const changeId = parseInt(li.id);
-    parsedToDos[changeId-1].location = address.value;
-    span.innerText = address.value;
+    parsedToDos[changeId-1].location = addressValue;
 
-    // console.log(parsedToDos);
+    naver.maps.Service.geocode({
+        query: addressValue
+    }, function(status, response){
+            if(status === naver.maps.Service.Status.ERROR){
+                if(!addressValue){
+                    return alert('Geocode Error, Please check address');
+                }
+                return alert('Geocode Error, address:' + addressValue);
+            }
+
+            if(response.v2.meta.totalCount === 0){
+                address.value = "";
+                return alert('No result.');
+            } else{
+                span.innerText = addressValue;
+                localStorage.removeItem(TODOS_LS);
+                localStorage.setItem(TODOS_LS, JSON.stringify(parsedToDos));
+
+                address.value = "";
+            }
+        }
+    );
+
+    /* // console.log(parsedToDos);
     localStorage.removeItem(TODOS_LS);
     localStorage.setItem(TODOS_LS, JSON.stringify(parsedToDos));
 
-    address.value = "";
+    addressValue = ""; */
 }
 
 function saveToDos(){
     localStorage.setItem(TODOS_LS, JSON.stringify(toDos));
 }
 
-function paintToDo(text){
+function paintToDo(text, location){
     const li = document.createElement("li");
 
     
@@ -83,11 +106,11 @@ function paintToDo(text){
     
     const locationText = document.createElement("span");
     locationText.setAttribute("class", "loca");
+    locationText.innerText = location;
     
     const newId = toDos.length + 1;
     const formId = "form" + newId;
     const locationId = "location" + newId;
-    const list_location = null;
     const list_x = null;
     const list_y = null;
     
@@ -113,7 +136,7 @@ function paintToDo(text){
     const toDoObj = {
         text: text,
         id: newId,
-        location: list_location,
+        location,
         x: list_x,
         y: list_y
     }
@@ -170,8 +193,8 @@ function loadToDos(){
     if(loadedToDos !== null){
         const parsedToDos = JSON.parse(loadedToDos);
         parsedToDos.forEach(function(toDo){
-            paintToDo(toDo.text); 
-        })
+            paintToDo(toDo.text, toDo.location); 
+        });
     }
 }
 
