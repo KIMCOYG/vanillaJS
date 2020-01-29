@@ -5,20 +5,47 @@ const toDoForm = document.querySelector(".js-toDoForm"),
     selDelete = document.querySelector(".selectDelete");
 
 const TODOS_LS = 'toDos',
-    User_LS = 'currentUser';
+    User_LS = 'currentUser',
+    SHOWING_CN = "showing",
+    Form_CN = "form";
 
 let toDos = [];
 
-function deleteToDo(event){ //필요없음
+function addLocation(event){
+    event.preventDefault();
     const btn = event.target;
     const li = btn.parentNode;
-    console.log(btn, li);
-    toDoList.removeChild(li);
+    const li_input = li.querySelector(".form");
+    console.log(btn, li, li_input);
+    // li_input.classList.remove(Form_CN);
+    // li_input.classList.add(SHOWING_CN);
+    
+    /* toDoList.removeChild(li);
     const cleanToDos = toDos.filter(function(toDo){
         return toDo.id !== parseInt(li.id);
     });
     toDos = cleanToDos;
-    saveToDos();
+    saveToDos(); */
+}
+
+function saveLocation(event){
+    event.preventDefault();
+
+    const form = event.target;
+    const li = form.parentNode;
+    const address = form.querySelector("input");
+    const span = form.querySelector(".loca");
+    const loadedToDos = localStorage.getItem(TODOS_LS);
+    const parsedToDos = JSON.parse(loadedToDos);
+    const changeId = parseInt(li.id);
+    parsedToDos[changeId-1].location = address.value;
+    span.innerText = address.value;
+
+    // console.log(parsedToDos);
+    localStorage.removeItem(TODOS_LS);
+    localStorage.setItem(TODOS_LS, JSON.stringify(parsedToDos));
+
+    address.value = "";
 }
 
 function saveToDos(){
@@ -27,24 +54,68 @@ function saveToDos(){
 
 function paintToDo(text){
     const li = document.createElement("li");
-    const delBtn = document.createElement("button");
+
+    
     const span = document.createElement("span");
+    span.innerText = text;
+    
     const checkBox = document.createElement("input");
     checkBox.setAttribute("type", "checkbox");
     checkBox.setAttribute("class", "check");
-    const newId = toDos.length + 1;
     
-    delBtn.innerText = "DEL";
-    delBtn.addEventListener("click", deleteToDo);
-    span.innerText = text;
+    const addBtn = document.createElement("button");
+    addBtn.innerText = "Add Location";
+    addBtn.addEventListener("click", addLocation);
+    
+    /* const locationBox = document.createElement("input");
+    locationBox.setAttribute("type", "checkbox");
+    locationBox.setAttribute("class", "checkedLocation"); */
+    
+    const br = document.createElement("br");
+    
+    const form = document.createElement("form");
+    form.addEventListener("submit", saveLocation);
+    
+    const locationInput = document.createElement("input");
+    locationInput.setAttribute("type", "text");
+    locationInput.setAttribute("placeholder", "Write the locationInput");
+    locationInput.classList.add(SHOWING_CN);
+    
+    const locationText = document.createElement("span");
+    locationText.setAttribute("class", "loca");
+    
+    const newId = toDos.length + 1;
+    const formId = "form" + newId;
+    const locationId = "location" + newId;
+    const list_location = null;
+    const list_x = null;
+    const list_y = null;
+    
+    form.appendChild(locationInput);
+    form.appendChild(locationText);
+    form.id = formId;
+    locationText.id = locationId;
+    
+    // locationText.innerText = list_location;
+
     li.appendChild(span);
-    // li.appendChild(delBtn);
     li.appendChild(checkBox);
+   /*  li.appendChild(locationText);
+    li.appendChild(locationBox); */
+    li.appendChild(addBtn);
+    li.appendChild(br);
+    // li.appendChild(location);
+    li.appendChild(form);
     li.id = newId;
+
     toDoList.appendChild(li);
+
     const toDoObj = {
         text: text,
-        id: newId
+        id: newId,
+        location: list_location,
+        x: list_x,
+        y: list_y
     }
     toDos.push(toDoObj);
     saveToDos();
@@ -53,7 +124,7 @@ function paintToDo(text){
 function handleKeyUp(event){
     event.preventDefault();
     const currentValue = toDoInput.value;
-    console.log("hi hello");
+    // console.log("hi hello");
     if(currentValue.length>10){
         alert("No more than 10 characters");
         toDoInput.value = "";
@@ -71,7 +142,7 @@ function handleSubmit(event){
         alert("Too many words!!");
     } else{
         if(parsedToDos === null){
-            console.log('hello'); //paintToDo(currentValue);
+            // console.log('hello'); //paintToDo(currentValue);
         } else{
             parsedToDos.forEach(function(toDo){
                 if(toDo.text.toLowerCase() === currentValue.toLowerCase()){
@@ -116,7 +187,8 @@ function checkingSelBox(){
 
 function allDelelteActive(){
     localStorage.removeItem(TODOS_LS);
-    const listAll = document.querySelectorAll("li");
+    const listAll = toDoList.querySelectorAll("li");
+    // console.log(listAll);
     for(var i=0;i<listAll.length;i++){
         toDoList.removeChild(listAll[i]);
     }

@@ -13,7 +13,7 @@ function saveName(text){
     localStorage.setItem(USER_LS, text);
 }
 
-function handleSubmit(){
+function handleSubmit(event){
     event.preventDefault();
     const currentValue = input.value;
     paintGreeting(currentValue);
@@ -23,8 +23,8 @@ function handleSubmit(){
 }
 
 function changeName(){
-    const liAll = document.querySelectorAll("li");
-
+    const liAll = toDoList.querySelectorAll("li");
+    
     nameForm.classList.add(SHOWING_CN);
     greeting.classList.remove(SHOWING_CN);
     todoForm.classList.remove(SHOWING_CN);
@@ -55,6 +55,7 @@ function paintGreeting(text){
 }
 
 function loadName(){
+    // event.preventDefault();
     const currentUser = localStorage.getItem(USER_LS);
     if(currentUser === null){
         askForName();
@@ -65,6 +66,7 @@ function loadName(){
 }
 
 function greetingBox(){
+    // event.preventDefault();
     const name = localStorage.getItem(USER_LS);
     if(name !== null){
         todoForm.classList.add(SHOWING_CN);
