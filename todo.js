@@ -86,6 +86,7 @@ function paintToDo(text){
     
     const newId = toDos.length + 1;
     const formId = "form" + newId;
+    const locationId = "location" + newId;
     const list_location = null;
     const list_x = null;
     const list_y = null;
@@ -93,6 +94,7 @@ function paintToDo(text){
     form.appendChild(locationInput);
     form.appendChild(locationText);
     form.id = formId;
+    locationText.id = locationId;
     
     // locationText.innerText = list_location;
 

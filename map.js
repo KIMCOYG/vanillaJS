@@ -1,6 +1,7 @@
 const toDoMap = document.querySelector(".js-map"),
     toDoMapInput = toDoMap.querySelector("input"),
-    jsToDoList = document.querySelector(".js-toDoList");
+    jsToDoList = document.querySelector(".js-toDoList"),
+    toDoList_lists = jsToDoList.querySelectorAll("li");
 
 const COOORD = 'coords',
     toDos_LS = 'toDos';
@@ -9,6 +10,21 @@ var map;
 var infoWindow = new naver.maps.InfoWindow({
     anchorSkew: true
   });
+
+function addListen(){
+    toDoList_lists.forEach(function(childList){
+        const toDoList_form = childList.querySelector("form");
+        const toDoList_span = toDoList_form.querySelector("span");
+        console.log(toDoList_span);
+        toDoList_span.addEventListener("click", showMap);
+    });
+}
+
+function showMap(event){
+    const clicked = event.target
+    const spanText = clicked.innerText;
+    searchAddressToCoordinate(spanText);
+}
 
 function getMap(lat, lng){
     var mapOptions = {
@@ -71,13 +87,6 @@ function searchAddressToCoordinate(address){
 function inspectBox(){
     const loadedToDoObj = localStorage.getItem(TODOS_LS);
     const parsedToDoObj = JSON.parse(loadedToDoObj);
-    parsedToDoObj[1].location = "일산";
-    console.log(parsedToDoObj);
-    checkedLocation.forEach(function(checky){
-        if(checky.checked){
-            console.log(checky);
-        }
-    });
 }
 
 function loadCoords(){
@@ -96,6 +105,7 @@ function searchLocaiton(event){
 function init(){
     loadCoords();
     toDoMap.addEventListener("submit", searchLocaiton);
+    addListen();
 }
 
 init();
