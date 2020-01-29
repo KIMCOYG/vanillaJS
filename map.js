@@ -15,7 +15,7 @@ function addListen(){
     toDoList_lists.forEach(function(childList){
         const toDoList_form = childList.querySelector("form");
         const toDoList_span = toDoList_form.querySelector("span");
-        console.log(toDoList_span);
+        // console.log(toDoList_span);
         toDoList_span.addEventListener("click", showMap);
     });
 }
@@ -33,7 +33,7 @@ function getMap(lat, lng){
         center: new naver.maps.LatLng(lat, lng),
         zoom: 10
     }
-    console.log(mapOptions);
+    // console.log(mapOptions);
     map = new naver.maps.Map('map', mapOptions);
     map.setCursor('pointer');
 }
@@ -81,15 +81,9 @@ function searchAddressToCoordinate(address){
         map.setCenter(point);
         infoWindow.open(map, point);
       });
-      inspectBox();
 }
 
-function inspectBox(){
-    const loadedToDoObj = localStorage.getItem(TODOS_LS);
-    const parsedToDoObj = JSON.parse(loadedToDoObj);
-}
-
-function loadCoords(){
+function loadMaps(){
     const loadedCoords = localStorage.getItem(COORDS);
     const parseCoords = JSON.parse(loadedCoords);
     getMap(parseCoords.latitude, parseCoords.longitude);
@@ -103,7 +97,7 @@ function searchLocaiton(event){
 }
 
 function init(){
-    loadCoords();
+    loadMaps();
     toDoMap.addEventListener("submit", searchLocaiton);
     addListen();
 }
