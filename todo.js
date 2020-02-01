@@ -11,7 +11,7 @@ const TODOS_LS = 'toDos',
 
 let toDos = [];
 
-function addLocation(event){
+/* function addLocation(event){
     event.preventDefault();
     const btn = event.target;
     const li = btn.parentNode;
@@ -25,8 +25,7 @@ function addLocation(event){
         return toDo.id !== parseInt(li.id);
     });
     toDos = cleanToDos;
-    saveToDos(); */
-}
+    saveToDos();} */
 
 function saveLocation(event){
     event.preventDefault();
@@ -86,9 +85,9 @@ function paintToDo(text, location){
     checkBox.setAttribute("type", "checkbox");
     checkBox.setAttribute("class", "check");
     
-    const addBtn = document.createElement("button");
+    /* const addBtn = document.createElement("button");
     addBtn.innerText = "Add Location";
-    addBtn.addEventListener("click", addLocation);
+    addBtn.addEventListener("click", addLocation); */
     
     /* const locationBox = document.createElement("input");
     locationBox.setAttribute("type", "checkbox");
@@ -125,7 +124,7 @@ function paintToDo(text, location){
     li.appendChild(checkBox);
    /*  li.appendChild(locationText);
     li.appendChild(locationBox); */
-    li.appendChild(addBtn);
+    // li.appendChild(addBtn);
     li.appendChild(br);
     // li.appendChild(location);
     li.appendChild(form);
