@@ -28,8 +28,13 @@ function showMap(event){
 
 function getMap(lat, lng){
     var mapOptions = {
-        mapTypeControl: true,
+        // mapTypeControl: true,
         useStyleMap: true,
+        zoomControl: true,
+        zoomControlOptions: {
+          // style: ZoomControlStyle.SMALL,
+          position: naver.maps.Position.TOP_RIGHT
+        },
         center: new naver.maps.LatLng(lat, lng),
         zoom: 10
     }
