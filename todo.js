@@ -199,18 +199,22 @@ function loadToDos(){
 
 let checkingSelected = false;
 function checkingSelBox(){
+    let selCount = 0;
     const checking = document.querySelectorAll(".check");
     checking.forEach(function(checky){
         if(checky.checked){
             checkingSelected = true;
+            selCount += 1;
         }
     });
+
+    return selCount;
 }
 
 function allDelelteActive(){
     localStorage.removeItem(TODOS_LS);
     const listAll = toDoList.querySelectorAll("li");
-    // console.log(listAll);
+
     for(var i=0;i<listAll.length;i++){
         toDoList.removeChild(listAll[i]);
     }
@@ -218,18 +222,14 @@ function allDelelteActive(){
 }
 
 function allDeleteClick(event){
-    var con;
-
     event.preventDefault();
-    checkingSelBox();
-    console.log(checkingSelected);
-    if(checkingSelected){
-        con = confirm("Selected Checkbox, All delete?");
-        if(con){
-            allDelelteActive();
-            checkingSelected = false;
-        }
-    } else {
+    var con;
+    const loadedToDos = localStorage.getItem(TODOS_LS);
+    const parsedToDos = JSON.parse(loadedToDos);
+    const listCount = parsedToDos.length;
+        
+    con = confirm(listCount+"개의 리스트가 있습니다. 삭제하시겠습니까?");
+    if(con){
         allDelelteActive();
     }
 }
@@ -238,18 +238,23 @@ function selDeleteClick(event){
     event.preventDefault();
     const checking = document.querySelectorAll(".check");
     var checkingList
-    for(var i=0;i<checking.length;i++){
-        if(checking[i].checked === true){
-            checkingList = checking[i].parentNode;
-            // checkedArray.push(parseInt(checkingList.id));
-            toDoList.removeChild(checkingList);
-            const cleanToDos = toDos.filter(function(toDo){
-                return toDo.id !== parseInt(checkingList.id);
-            })
-            toDos = cleanToDos;
+    const listCount = checkingSelBox();
+    var con = confirm(listCount+"개가 선택되었습니다. 삭제하시겠습니까?");
+    
+    if(con){
+        for(var i=0;i<checking.length;i++){
+            if(checking[i].checked === true){
+                checkingList = checking[i].parentNode;
+                // checkedArray.push(parseInt(checkingList.id));
+                toDoList.removeChild(checkingList);
+                const cleanToDos = toDos.filter(function(toDo){
+                    return toDo.id !== parseInt(checkingList.id);
+                })
+                toDos = cleanToDos;
+            }
         }
+        saveToDos();        
     }
-    saveToDos();
 }
 
 function reset(){
