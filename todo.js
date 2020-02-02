@@ -1,6 +1,8 @@
 const toDoForm = document.querySelector(".js-toDoForm"),
     toDoInput = toDoForm.querySelector("input"),
     toDoList = document.querySelector(".js-toDoList"),
+    todoMap = document.querySelector(".js-map"),
+    todoMapInput = todoMap.querySelector("input"),
     allDelete = document.querySelector(".allDelete"),
     selDelete = document.querySelector(".selectDelete");
 
@@ -11,21 +13,26 @@ const TODOS_LS = 'toDos',
 
 let toDos = [];
 
-/* function addLocation(event){
-    event.preventDefault();
-    const btn = event.target;
-    const li = btn.parentNode;
-    const li_input = li.querySelector(".form");
-    console.log(btn, li, li_input);
-    // li_input.classList.remove(Form_CN);
-    // li_input.classList.add(SHOWING_CN);
-    
-    /* toDoList.removeChild(li);
-    const cleanToDos = toDos.filter(function(toDo){
-        return toDo.id !== parseInt(li.id);
-    });
-    toDos = cleanToDos;
-    saveToDos();} */
+var cor = true;
+function correctLocation(address){
+    naver.maps.Service.geocode({
+        query: address
+    }, function(status, response){
+            if(status === naver.maps.Service.Status.ERROR){
+                if(!address){
+                    return alert('Geocode Error, Please check address');
+                }
+                return alert('Geocode Error, address:' + address);
+            }
+
+            if(response.v2.meta.totalCount === 0){
+                // address.value = "";
+                cor = false;
+                return alert('No result.');
+            }
+        }
+    );
+}
 
 function saveLocation(event){
     event.preventDefault();
@@ -62,12 +69,6 @@ function saveLocation(event){
             }
         }
     );
-
-    /* // console.log(parsedToDos);
-    localStorage.removeItem(TODOS_LS);
-    localStorage.setItem(TODOS_LS, JSON.stringify(parsedToDos));
-
-    addressValue = ""; */
 }
 
 function saveToDos(){
@@ -84,14 +85,6 @@ function paintToDo(text, location){
     const checkBox = document.createElement("input");
     checkBox.setAttribute("type", "checkbox");
     checkBox.setAttribute("class", "check");
-    
-    /* const addBtn = document.createElement("button");
-    addBtn.innerText = "Add Location";
-    addBtn.addEventListener("click", addLocation); */
-    
-    /* const locationBox = document.createElement("input");
-    locationBox.setAttribute("type", "checkbox");
-    locationBox.setAttribute("class", "checkedLocation"); */
     
     const br = document.createElement("br");
     
@@ -110,23 +103,15 @@ function paintToDo(text, location){
     const newId = toDos.length + 1;
     const formId = "form" + newId;
     const locationId = "location" + newId;
-    const list_x = null;
-    const list_y = null;
     
     form.appendChild(locationInput);
     form.appendChild(locationText);
     form.id = formId;
     locationText.id = locationId;
-    
-    // locationText.innerText = list_location;
 
     li.appendChild(span);
     li.appendChild(checkBox);
-   /*  li.appendChild(locationText);
-    li.appendChild(locationBox); */
-    // li.appendChild(addBtn);
     li.appendChild(br);
-    // li.appendChild(location);
     li.appendChild(form);
     li.id = newId;
 
@@ -135,12 +120,11 @@ function paintToDo(text, location){
     const toDoObj = {
         text: text,
         id: newId,
-        location,
-        x: list_x,
-        y: list_y
+        location
     }
     toDos.push(toDoObj);
     saveToDos();
+    // todoMapInput.value = "";
 }
 
 function handleKeyUp(event){
@@ -156,35 +140,62 @@ function handleKeyUp(event){
 function handleSubmit(event){
     event.preventDefault();
     const currentValue = toDoInput.value;
+    const locationValue = todoMapInput.value;
     const loadedToDos = localStorage.getItem(TODOS_LS);
     const parsedToDos = JSON.parse(loadedToDos);
     let overlap = false;
 
     if(currentValue.length>30){
         alert("Too many words!!");
-    } else{
-        if(parsedToDos === null){
-            // console.log('hello'); //paintToDo(currentValue);
-        } else{
-            parsedToDos.forEach(function(toDo){
-                if(toDo.text.toLowerCase() === (currentValue.trim()).toLowerCase()){
-                    overlap = true;
-                    // console.log(overlap);
-                }
-            })
+    } else if(locationValue === ""){
+        var con = confirm("지정 장소가 없습니다. 괜찮으십니까?");
+        if(con){
+            if(parsedToDos === null){
+                // console.log('hello'); //paintToDo(currentValue);
+            } else{
+                parsedToDos.forEach(function(toDo){
+                    if(toDo.text.toLowerCase() === (currentValue.trim()).toLowerCase()){
+                        overlap = true;
+                        // console.log(overlap);
+                    }
+                })
+            }
+            
+            if(overlap === true){
+                alert('Overlap!!!');
+                overlap = false;
+                toDoInput.value = "";
+            } else{
+                paintToDo(currentValue.trim(), locationValue);
+            }
         }
-        
-        if(overlap === true){
-            alert('Overlap!!!');
-            overlap = false;
-            toDoInput.value = "";
-        } else{
-            paintToDo(currentValue.trim());
-        }
-
-    }
-
+    } else { //지정장소 존재
+        /* correctLocation(locationValue);
+        console.log(cor);
+        if(cor){ */
+            if(parsedToDos === null){
+                // console.log('hello'); //paintToDo(currentValue);
+            } else{
+                parsedToDos.forEach(function(toDo){
+                    if(toDo.text.toLowerCase() === (currentValue.trim()).toLowerCase()){
+                        overlap = true;
+                        // console.log(overlap);
+                    }
+                })
+            }
+            
+            if(overlap === true){
+                alert('Overlap!!!');
+                overlap = false;
+                toDoInput.value = "";
+            } else{
+                paintToDo(currentValue.trim(), locationValue);
+            }
+        // }
+        // cor = true;
+    } //
     toDoInput.value = "";
+    todoMapInput.value = "";
 }
 
 function loadToDos(){
