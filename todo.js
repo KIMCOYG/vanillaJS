@@ -147,8 +147,8 @@ function handleKeyUp(event){
     event.preventDefault();
     const currentValue = toDoInput.value;
     // console.log("hi hello");
-    if(currentValue.length>10){
-        alert("No more than 10 characters");
+    if(currentValue.length>30){
+        alert("No more than 30 characters");
         toDoInput.value = "";
     }
 }
@@ -167,7 +167,7 @@ function handleSubmit(event){
             // console.log('hello'); //paintToDo(currentValue);
         } else{
             parsedToDos.forEach(function(toDo){
-                if(toDo.text.toLowerCase() === currentValue.toLowerCase()){
+                if(toDo.text.toLowerCase() === (currentValue.trim()).toLowerCase()){
                     overlap = true;
                     // console.log(overlap);
                 }
@@ -179,7 +179,7 @@ function handleSubmit(event){
             overlap = false;
             toDoInput.value = "";
         } else{
-            paintToDo(currentValue);
+            paintToDo(currentValue.trim());
         }
 
     }
