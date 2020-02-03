@@ -3,20 +3,26 @@
 
   <head>
     <title>Something</title>
-    <link rel="stylesheet" href="index.css">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="index.css">
     <script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=s2ra4l2ff0&submodules=geocoder"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   </head>
 
   <body>
-    <div class="outer">
+    <div class="outer bg-success">
       <div class="middle">
-        <div class="inner">
+        <div class="text-center">
           <div class="js-clock">
             <h1>00:00</h1>
           </div>
           <form class="js-form form">
-            <input type="text" placeholder="What is your name?">
+              <input type="text" placeholder="What is your name?">
           </form>
           <h4 class="js-greetings greetings"></h4>
           
@@ -29,8 +35,8 @@
             <input type="text" placeholder="Write a to do">
           </form>
           <form class="js-delBtns form">
-            <button class="allDelete">allDel</button>
-            <button class="selectDelete">selDel</button>
+            <button class="allDelete btn btn-dark m-1">allDel</button>
+            <button class="selectDelete btn btn-dark m-1">selDel</button>
           </form>
           
           <ul class="js-toDoList"></ul>

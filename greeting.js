@@ -7,7 +7,8 @@ const nameForm = document.querySelector(".js-form"),
 
 const USER_LS = "currentUser",
     ToDoS_LS = "toDos"
-    SHOWING_CN = "showing";
+    SHOWING_CN = "showing",
+    D_NONE = "d-none";
 
 function saveName(text){
     localStorage.setItem(USER_LS, text);
@@ -18,6 +19,7 @@ function handleSubmit(event){
     const currentValue = input.value;
     paintGreeting(currentValue);
     saveName(currentValue);
+    // nameForm.classList.add(D_NONE);
     todoForm.classList.add(SHOWING_CN);
     delBtns.classList.add(SHOWING_CN);
 }
@@ -45,6 +47,9 @@ function askForName(){
 
 function paintGreeting(text){
     const changeBtn = document.createElement("button");
+    changeBtn.classList.add("btn");
+    changeBtn.classList.add("btn-dark");
+    changeBtn.style.marginLeft = "5px";
     changeBtn.innerText = "CHANGE";
     changeBtn.addEventListener("click", changeName);
 
