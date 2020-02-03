@@ -8,7 +8,8 @@ const nameForm = document.querySelector(".js-form"),
 const USER_LS = "currentUser",
     ToDoS_LS = "toDos"
     SHOWING_CN = "showing",
-    D_NONE = "d-none";
+    D_NONE = "d-none",
+    D_BLOCK = "d-block";
 
 function saveName(text){
     localStorage.setItem(USER_LS, text);
@@ -20,17 +21,17 @@ function handleSubmit(event){
     paintGreeting(currentValue);
     saveName(currentValue);
     // nameForm.classList.add(D_NONE);
-    todoForm.classList.add(SHOWING_CN);
-    delBtns.classList.add(SHOWING_CN);
+    todoForm.classList.add(D_BLOCK);
+    delBtns.classList.add(D_BLOCK);
 }
 
 function changeName(){
-    const liAll = toDoList.querySelectorAll("li");
+    const liAll = todoList.querySelectorAll("li");
     
-    nameForm.classList.add(SHOWING_CN);
-    greeting.classList.remove(SHOWING_CN);
-    todoForm.classList.remove(SHOWING_CN);
-    delBtns.classList.remove(SHOWING_CN);
+    nameForm.classList.add(D_BLOCK);
+    greeting.classList.remove(D_BLOCK);
+    todoForm.classList.remove(D_BLOCK);
+    delBtns.classList.remove(D_BLOCK);
     input.value = "";
     
     localStorage.removeItem(USER_LS);
@@ -41,7 +42,7 @@ function changeName(){
 }
 
 function askForName(){
-    nameForm.classList.add(SHOWING_CN);
+    nameForm.classList.add(D_BLOCK);
     nameForm.addEventListener("submit", handleSubmit);
 }
 
@@ -53,8 +54,8 @@ function paintGreeting(text){
     changeBtn.innerText = "CHANGE";
     changeBtn.addEventListener("click", changeName);
 
-    nameForm.classList.remove(SHOWING_CN);
-    greeting.classList.add(SHOWING_CN);
+    nameForm.classList.remove(D_BLOCK);
+    greeting.classList.add(D_BLOCK);
     greeting.innerText = `Hello ${text}`;
     greeting.appendChild(changeBtn);
 }
@@ -74,8 +75,8 @@ function greetingBox(){
     // event.preventDefault();
     const name = localStorage.getItem(USER_LS);
     if(name !== null){
-        todoForm.classList.add(SHOWING_CN);
-        delBtns.classList.add(SHOWING_CN);
+        todoForm.classList.add(D_BLOCK);
+        delBtns.classList.add(D_BLOCK);
     }
 }
 

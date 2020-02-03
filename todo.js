@@ -81,30 +81,38 @@ function paintToDo(text, location){
     
     const span = document.createElement("span");
     span.innerText = text;
+    span.classList.add("badge");
     
     const checkBox = document.createElement("input");
     checkBox.setAttribute("type", "checkbox");
     checkBox.setAttribute("class", "check");
+    // checkBox.classList.add("form-check-input");
     
     const br = document.createElement("br");
     
     const form = document.createElement("form");
     form.addEventListener("submit", saveLocation);
+    form.classList.add("form-inline");
     
     const locationInput = document.createElement("input");
     locationInput.setAttribute("type", "text");
     locationInput.setAttribute("placeholder", "Write the locationInput");
-    locationInput.classList.add(SHOWING_CN);
+    locationInput.classList.add("d-block");
+    locationInput.classList.add("form-control");
+
+    const brTag = document.createElement("br");
     
     const locationText = document.createElement("span");
     locationText.setAttribute("class", "loca");
     locationText.innerText = location;
+    locationText.classList.add("badge");
     
     const newId = toDos.length + 1;
     const formId = "form" + newId;
     const locationId = "location" + newId;
     
     form.appendChild(locationInput);
+    form.appendChild(brTag);
     form.appendChild(locationText);
     form.id = formId;
     locationText.id = locationId;

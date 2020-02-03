@@ -15,31 +15,31 @@
   </head>
 
   <body>
-    <div class="outer bg-success">
+    <div class="outer bg-success container">
       <div class="middle">
         <div class="text-center">
           <div class="js-clock">
             <h1>00:00</h1>
           </div>
-          <form class="js-form form">
-              <input type="text" placeholder="What is your name?">
+          <form class="js-form d-none form-inline">
+              <input type="text" placeholder="What is your name?" class="form-control">
           </form>
           <h4 class="js-greetings greetings"></h4>
           
-          <form class="js-map">
+          <form class="js-map form-inline d-block">
             <div id="map" class="js-map-show"></div>
-            <input type="text" placeholder="Write the location">
+            <input type="text" placeholder="Write the location" class="form-control">
           </form>
 
-          <form class="js-toDoForm form">
-            <input type="text" placeholder="Write a to do">
+          <form class="js-toDoForm d-none form-inline">
+            <input type="text" placeholder="Write a to do" class="form-control">
           </form>
-          <form class="js-delBtns form">
+          <form class="js-delBtns d-none">
             <button class="allDelete btn btn-dark m-1">allDel</button>
             <button class="selectDelete btn btn-dark m-1">selDel</button>
           </form>
           
-          <ul class="js-toDoList"></ul>
+          <ul class="js-toDoList mt-2" style="justify-content: center;"></ul>
           
           
           <span class="js-weather"></span>
