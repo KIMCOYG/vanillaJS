@@ -77,7 +77,6 @@ function saveToDos(){
 
 function paintToDo(text, location){
     const li = document.createElement("li");
-
     
     const span = document.createElement("span");
     span.innerText = text;

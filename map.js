@@ -98,7 +98,7 @@ function searchLocaiton(event){
     event.preventDefault();
     const searchedAddress = toDoMapInput.value;
     searchAddressToCoordinate(searchedAddress);
-    toDoMapInput.value = "";
+    // toDoMapInput.value = "";
 }
 
 function init(){
