@@ -9,6 +9,26 @@ function getTime(){
     const minutes = date.getMinutes();
     const hours = date.getHours();
     const seconds = date.getSeconds();
+    const dow = date.getDay();
+    var dowName = "Mon";
+
+    if(dow===1){
+        dowName = "Mon";
+    } else if(dow===2){
+        dowName = "Tue";
+    } else if(dow===3){
+        dowName = "Wed";
+    } else if(dow===4){
+        dowName = "Thu";
+    } else if(dow===5){
+        dowName = "Fri";
+    } else if(dow===6){
+        dowName = "Sat";
+    } else if(dow===7){
+        dowName = "Sun";
+    }
+    
+    console.log(dow, dowName);
 
     // console.log(year, month, day);
     
@@ -17,7 +37,7 @@ function getTime(){
         day<10 ? `0${day}` : day} ${
         hours<10 ? `0${hours}` : hours}:${
         minutes<10 ?  `0${minutes}` : minutes}:${
-        seconds<10 ? `0${seconds}` : seconds}`;
+        seconds<10 ? `0${seconds}` : seconds} ${dowName}`;
 }
 
 function init(){
