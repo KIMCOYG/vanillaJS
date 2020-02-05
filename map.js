@@ -11,8 +11,8 @@ const COOORD = 'coords',
 
 var tempId;
 
-var mapLoadedCoords;
-var mapParsedCoords;
+var mapGetLocalStorage;
+var mapParseLocalStorage;
 
 var map;
 var infoWindow = new naver.maps.InfoWindow({
@@ -101,9 +101,9 @@ function searchAddressToCoordinate(address){
 }
 
 function loadMaps(){
-    const loadedCoords = localStorage.getItem(COORDS);
-    const parseCoords = JSON.parse(loadedCoords);
-    getMap(parseCoords.latitude, parseCoords.longitude);
+    mapGetLocalStorage = localStorage.getItem(COORDS);
+    mapParseLocalStorage = JSON.parse(mapGetLocalStorage);
+    getMap(mapParseLocalStorage.latitude, mapParseLocalStorage.longitude);
 }
 
 function searchLocaiton(event){
@@ -116,8 +116,8 @@ function searchLocaiton(event){
 function editLocation(){ //여기부터 작업하기
   event.preventDefault();
 
-  const loadtodos = localStorage.getItem(toDos_LS);
-  const parsetodos = JSON.parse(loadtodos);
+  const mapGetLocalStorage = localStorage.getItem(toDos_LS);
+  const mapParseLocalStorage = JSON.parse(mapGetLocalStorage);
 
   const changeText = tempId;
   const editValue = editInput.value;

@@ -11,6 +11,9 @@ const TODOS_LS = 'toDos',
     SHOWING_CN = "showing",
     Form_CN = "form";
 
+var getToDoLocalStorage;
+var parseToDoLocalStorage;
+
 let toDos = [];
 
 var cor = true;
@@ -41,11 +44,11 @@ function saveLocation(event){
     const li = form.parentNode;
     const address = form.querySelector("input");
     const span = form.querySelector(".loca");
-    const loadedToDos = localStorage.getItem(TODOS_LS);
-    const parsedToDos = JSON.parse(loadedToDos);
+    getToDoLocalStorage = localStorage.getItem(TODOS_LS);
+    parseToDoLocalStorage = JSON.parse(getToDoLocalStorage);
     const addressValue = address.value;
     const changeId = parseInt(li.id);
-    parsedToDos[changeId-1].location = addressValue;
+    parseToDoLocalStorage[changeId-1].location = addressValue;
 
     naver.maps.Service.geocode({
         query: addressValue
@@ -63,7 +66,7 @@ function saveLocation(event){
             } else{
                 span.innerText = addressValue;
                 localStorage.removeItem(TODOS_LS);
-                localStorage.setItem(TODOS_LS, JSON.stringify(parsedToDos));
+                localStorage.setItem(TODOS_LS, JSON.stringify(parseToDoLocalStorage));
 
                 address.value = "";
             }
@@ -148,8 +151,8 @@ function handleSubmit(event){
     event.preventDefault();
     const currentValue = toDoInput.value;
     const locationValue = todoMapInput.value;
-    const loadedToDos = localStorage.getItem(TODOS_LS);
-    const parsedToDos = JSON.parse(loadedToDos);
+    loadedToDos = getToDoLocalStorage.getItem(TODOS_LS);
+    parseToDoLocalStorage = JSON.parse(getToDoLocalStorage);
     let overlap = false;
 
     if(currentValue.length>30){
@@ -157,10 +160,10 @@ function handleSubmit(event){
     } else if(locationValue === ""){
         var con = confirm("지정 장소가 없습니다. 괜찮으십니까?");
         if(con){
-            if(parsedToDos === null){
+            if(parseToDoLocalStorage === null){
                 // console.log('hello'); //paintToDo(currentValue);
             } else{
-                parsedToDos.forEach(function(toDo){
+                parseToDoLocalStorage.forEach(function(toDo){
                     if(toDo.text.toLowerCase() === (currentValue.trim()).toLowerCase()){
                         overlap = true;
                         // console.log(overlap);
@@ -180,10 +183,10 @@ function handleSubmit(event){
         /* correctLocation(locationValue);
         console.log(cor);
         if(cor){ */
-            if(parsedToDos === null){
+            if(parseToDoLocalStorage === null){
                 // console.log('hello'); //paintToDo(currentValue);
             } else{
-                parsedToDos.forEach(function(toDo){
+                parseToDoLocalStorage.forEach(function(toDo){
                     if(toDo.text.toLowerCase() === (currentValue.trim()).toLowerCase()){
                         overlap = true;
                         // console.log(overlap);
@@ -206,10 +209,10 @@ function handleSubmit(event){
 }
 
 function loadToDos(){
-    const loadedToDos = localStorage.getItem(TODOS_LS);
-    if(loadedToDos !== null){
-        const parsedToDos = JSON.parse(loadedToDos);
-        parsedToDos.forEach(function(toDo){
+    getToDoLocalStorage = localStorage.getItem(TODOS_LS);
+    if(getToDoLocalStorage !== null){
+        parseToDoLocalStorage = JSON.parse(getToDoLocalStorage);
+        parseToDoLocalStorage.forEach(function(toDo){
             paintToDo(toDo.text, toDo.location); 
         });
     }
@@ -242,9 +245,9 @@ function allDelelteActive(){
 function allDeleteClick(event){
     event.preventDefault();
     var con;
-    const loadedToDos = localStorage.getItem(TODOS_LS);
-    const parsedToDos = JSON.parse(loadedToDos);
-    const listCount = parsedToDos.length;
+    getToDoLocalStorage = localStorage.getItem(TODOS_LS);
+    parseToDoLocalStorage = JSON.parse(getToDoLocalStorage);
+    const listCount = parseToDoLocalStorage.length;
         
     con = confirm(listCount+"개의 리스트가 있습니다. 삭제하시겠습니까?");
     if(con){
