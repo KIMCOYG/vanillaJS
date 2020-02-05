@@ -1,0 +1,31 @@
+{
+  "name": "vanillajs",
+  "version": "1.0.0",
+  "description": "toDoList",
+  "main": "bg.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec babel-node app.js --delay 2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KIMCOYG/vanillaJS.git"
+  },
+  "author": "KimJeongho",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KIMCOYG/vanillaJS/issues"
+  },
+  "homepage": "https://github.com/KIMCOYG/vanillaJS#readme",
+  "dependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/node": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.8.11",
+    "nodemon": "^2.0.2"
+  }
+}

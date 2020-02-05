@@ -151,7 +151,7 @@ function handleSubmit(event){
     event.preventDefault();
     const currentValue = toDoInput.value;
     const locationValue = todoMapInput.value;
-    loadedToDos = getToDoLocalStorage.getItem(TODOS_LS);
+    getToDoLocalStorage = localStorage.getItem(TODOS_LS);
     parseToDoLocalStorage = JSON.parse(getToDoLocalStorage);
     let overlap = false;
 
