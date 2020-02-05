@@ -28,7 +28,7 @@ function getTime(){
         dowName = "Sun";
     }
     
-    console.log(dow, dowName);
+    // console.log(dow, dowName);
 
     // console.log(year, month, day);
     

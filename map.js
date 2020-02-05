@@ -1,10 +1,15 @@
 const toDoMap = document.querySelector(".js-map"),
     toDoMapInput = toDoMap.querySelector("input"),
     jsToDoList = document.querySelector(".js-toDoList"),
-    toDoList_lists = jsToDoList.querySelectorAll("li");
+    toDoList_lists = jsToDoList.querySelectorAll("li")
+    editForm = document.querySelector(".js-edit-form")
+    editInput = editForm.querySelector("input");
 
 const COOORD = 'coords',
-    toDos_LS = 'toDos';
+    toDos_LS = 'toDos',
+    d_block = 'd-block';
+
+var tempId;
 
 var map;
 var infoWindow = new naver.maps.InfoWindow({
@@ -23,7 +28,11 @@ function addListen(){
 function showMap(event){
     const clicked = event.target
     const spanText = clicked.innerText;
+    tempId = clicked;
+    editForm.classList.add(d_block);
+    editInput.value = spanText;
     searchAddressToCoordinate(spanText);
+    console.log(tempId);
 }
 
 function getMap(lat, lng){
@@ -62,7 +71,7 @@ function searchAddressToCoordinate(address){
           item = response.v2.addresses[0],
           point = new naver.maps.Point(item.x, item.y);
 
-        console.log(item);
+        // console.log(item);
     
         if (item.roadAddress) {
           htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
@@ -101,9 +110,23 @@ function searchLocaiton(event){
     // toDoMapInput.value = "";
 }
 
+function editLocation(){ //여기부터 작업하기
+  event.preventDefault();
+
+  const loadtodos = localStorage.getItem(toDos_LS);
+  const parsetodos = JSON.parse(loadtodos);
+
+  const changeText = tempId;
+  const editValue = editInput.value;
+  const locationForm = changeText.parentNode;
+  const locationList = locationForm.parentNode;
+  console.log(locationForm, locationList);
+}
+
 function init(){
     loadMaps();
     toDoMap.addEventListener("submit", searchLocaiton);
+    editForm.addEventListener("submit", editLocation);
     addListen();
 }
 

@@ -110,15 +110,15 @@ function paintToDo(text, location){
     const formId = "form" + newId;
     const locationId = "location" + newId;
     
-    form.appendChild(locationInput);
-    form.appendChild(brTag);
+    // form.appendChild(locationInput);
+    // form.appendChild(brTag);
     form.appendChild(locationText);
     form.id = formId;
     locationText.id = locationId;
 
     li.appendChild(span);
     li.appendChild(checkBox);
-    li.appendChild(br);
+    // li.appendChild(br);
     li.appendChild(form);
     li.id = newId;
 
