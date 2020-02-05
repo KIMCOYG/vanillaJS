@@ -11,6 +11,9 @@ const COOORD = 'coords',
 
 var tempId;
 
+var mapLoadedCoords;
+var mapParsedCoords;
+
 var map;
 var infoWindow = new naver.maps.InfoWindow({
     anchorSkew: true
