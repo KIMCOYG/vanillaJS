@@ -9,7 +9,7 @@ const COOORD = 'coords',
     toDos_LS = 'toDos',
     d_block = 'd-block';
 
-var tempId;
+var tempId; //showMap 사용
 
 var mapGetLocalStorage;
 var mapParseLocalStorage;
@@ -32,10 +32,10 @@ function showMap(event){
     const clicked = event.target
     const spanText = clicked.innerText;
     tempId = clicked;
-    editForm.classList.add(d_block);
+    editForm.classList.add(d_block, "mt-2");
     editInput.value = spanText;
     searchAddressToCoordinate(spanText);
-    console.log(tempId);
+    // console.log(tempId);
 }
 
 function getMap(lat, lng){
@@ -116,14 +116,21 @@ function searchLocaiton(event){
 function editLocation(){ //여기부터 작업하기
   event.preventDefault();
 
-  const mapGetLocalStorage = localStorage.getItem(toDos_LS);
-  const mapParseLocalStorage = JSON.parse(mapGetLocalStorage);
+  mapGetLocalStorage = localStorage.getItem(toDos_LS);
+  mapParseLocalStorage = JSON.parse(mapGetLocalStorage);
 
   const changeText = tempId;
-  const editValue = editInput.value;
   const locationForm = changeText.parentNode;
   const locationList = locationForm.parentNode;
-  console.log(locationForm, locationList);
+  const editValue = editInput.value;
+
+  mapParseLocalStorage[locationList.id-1].location = editValue;
+  changeText.innerText = editValue;
+  
+  localStorage.removeItem(toDos_LS);
+  localStorage.setItem(toDos_LS, JSON.stringify(mapParseLocalStorage));
+
+  editForm.classList.remove(d_block, "mt-2");
 }
 
 function init(){

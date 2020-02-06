@@ -102,8 +102,6 @@ function paintToDo(text, location){
     locationInput.classList.add("d-block");
     locationInput.classList.add("form-control");
 
-    const brTag = document.createElement("br");
-    
     const locationText = document.createElement("span");
     locationText.setAttribute("class", "loca");
     locationText.innerText = location;
@@ -114,7 +112,6 @@ function paintToDo(text, location){
     const locationId = "location" + newId;
     
     // form.appendChild(locationInput);
-    // form.appendChild(brTag);
     form.appendChild(locationText);
     form.id = formId;
     locationText.id = locationId;
