@@ -40,9 +40,9 @@ function getTime(){
         seconds<10 ? `0${seconds}` : seconds} ${dowName}`;
 }
 
-function init(){
+function clockInit(){
     getTime();
     setInterval(getTime, 1000);
 }
 
-init();
+clockInit();
